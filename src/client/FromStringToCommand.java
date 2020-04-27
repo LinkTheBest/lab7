@@ -10,6 +10,8 @@ public class FromStringToCommand {
         String devidedComand[];
         Command command = null;
         devidedComand = userCommand.split("\\s");
+        System.out.println(devidedComand.length);
+        System.out.println(devidedComand[devidedComand.length - 1]);
 
         switch (devidedComand[0]) {
             case "":
@@ -26,13 +28,19 @@ public class FromStringToCommand {
                 command = new Command(ListOfCommands.SHOW);
                 return command;
             case "add":
-                CreatingNewObject creatingNewObject = new CreatingNewObject();
+                if (devidedComand[0].equals("add")) {
+                    System.out.println("Введите имя!");
+                    command = new Command(ListOfCommands.HELP);
+                    return command;
+                }
+                CreatingNewObject creatingNewObject = new CreatingNewObject(devidedComand[1]);
                 command = new Command(ListOfCommands.ADD, creatingNewObject.createObject());
                 return command;
             case "remove_by_id":
                 if (devidedComand[devidedComand.length - 1].equals("remove_by_id")) {
                     System.out.println("Введите id после команды!");
-                    break;
+                    command = new Command(ListOfCommands.HELP);
+                    return command;
                 } else {
                     command = new Command(ListOfCommands.REMOVE_BY_ID, Integer.valueOf(devidedComand[1]));
                     return command;
@@ -46,7 +54,8 @@ public class FromStringToCommand {
             case "execute_script":
                 if (devidedComand[devidedComand.length - 1].equals("execute_script")) {
                     System.out.println("Введите название файла после команды!");
-                    break;
+                    command = new Command(ListOfCommands.HELP);
+                    return command;
                 } else {
                     command = new Command(ListOfCommands.EXECUTE_SCRIPT, devidedComand[1]);
                     return command;
@@ -54,7 +63,8 @@ public class FromStringToCommand {
             case "add_if_max":
                 if (devidedComand[devidedComand.length - 1].equals("add_if_max")) {
                     System.out.println("Введите имя объекта после команды!");
-                    break;
+                    command = new Command(ListOfCommands.HELP);
+                    return command;
                 } else {
                     command = new Command(ListOfCommands.ADD_IF_MAX, devidedComand[1]);
                     return command;
@@ -62,7 +72,8 @@ public class FromStringToCommand {
             case "add_if_min":
                 if (devidedComand[devidedComand.length - 1].equals("add_if_min")) {
                     System.out.println("Введите имя объекта после команды!");
-                    break;
+                    command = new Command(ListOfCommands.HELP);
+                    return command;
                 } else {
                     command = new Command(ListOfCommands.ADD_IF_MIN, devidedComand[1]);
                     return command;
